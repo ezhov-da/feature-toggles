@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
+
+    <script>
+        function enableEditToggle(idToggle) {
+            const element = document.querySelector('#' + idToggle)
+            const view = element.querySelector('.view-toggle')
+            const edit = element.querySelector('.edit-toggle')
+
+            edit.style.display = edit.style.display === 'none' ? 'block' : 'none'
+            view.style.display = view.style.display === 'none' ? 'block' : 'none'
+        }
+
+        function getView(idToggle, toggle) {
+            return `<div class="view-toggle">
+            <input type="button" class="button is-primary" onclick="enableEditToggle('${idToggle}')"
+            value="Редактировать"/>
+            <p>name: ${toggle.name}</p>
+            <p>active: ${toggle.active}</p>
+            <p>startDate: ${toggle.startDate}</p>
+            <p>endDate: ${toggle.endDate}</p>
+            <p>type: ${toggle.type}</p>
+            </div>`
+        }
+
+        function getEdit(idToggle, toggle) {
+            return `<div class="edit-toggle" style="display: none">
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        <input class="input" type="email" placeholder="e.g. alex@example.com">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                        <input class="input" type="password" placeholder="********">
+                    </div>
+                </div>
+                <input type="button" class="button is-primary" onclick="enableEditToggle('asdfasdf')"
+                       value="Сохранить"/>
+            </div>`
+        }
+
+        function toggle(idToggle, toggle) {
+            const element = document.querySelector('#' + idToggle)
+            element.innerHTML = getView(idToggle, toggle) + getEdit(idToggle, toggle)
+        }
+    </script>
+</head>
+<body>
+
+<section class="section">
+    <h1 class="title">Feature Toggles</h1>
+
+    <nav class="level">
+        <div class="level-right">
+            <p class="level-item"><a class="button is-success">Создать Feature Toggles</a></p>
+        </div>
+    </nav>
+
+    <div class="container toggles">
+        <div class="box" id="asdfasdf"></div>
+    </div>
+
+    <script>
+        const exampleF = {
+            "name": "Test",
+            "active": "fuf",
+            "startDate": "Значение",
+            "endDate": "Значение",
+            "type": "Значение"
+        }
+
+        toggle("asdfasdf", exampleF)
+    </script>
+
+</section>
+</body>
+</html>
