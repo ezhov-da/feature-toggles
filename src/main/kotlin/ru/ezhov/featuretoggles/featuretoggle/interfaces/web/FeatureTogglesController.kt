@@ -1,6 +1,5 @@
 package ru.ezhov.featuretoggles.featuretoggle.interfaces.web
 
-import arrow.core.getOrElse
 import arrow.core.getOrHandle
 import mu.KotlinLogging
 import org.springframework.http.HttpStatus
@@ -21,7 +20,7 @@ class FeatureTogglesController(
     fun index(model: Model): String? {
         val toggles = featureToggleRepository
                 .all()
-                .getOrHandle {ex -> throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message) }
+                .getOrHandle { ex -> throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message) }
 
         logger.debug { toggles }
 

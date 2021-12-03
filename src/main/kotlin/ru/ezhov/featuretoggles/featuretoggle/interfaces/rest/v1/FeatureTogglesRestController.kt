@@ -95,9 +95,9 @@ class FeatureTogglesRestController(
                             "Not found condition engine by type=${newToggle.condition.type} " +
                                     "language=${newToggle.condition.language}"
                     )
-            featureToggleRepository.save(FeatureToggle.from(newToggle)).getOrHandle { ex ->
-                throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
-            }
+        }
+        featureToggleRepository.save(FeatureToggle.from(newToggle)).getOrHandle { ex ->
+            throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
         }
     }
 

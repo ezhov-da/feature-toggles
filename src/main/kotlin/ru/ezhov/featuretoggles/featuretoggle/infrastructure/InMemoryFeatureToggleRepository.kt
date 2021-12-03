@@ -10,9 +10,11 @@ import ru.ezhov.featuretoggles.featuretoggle.domain.model.FeatureToggle
 class InMemoryFeatureToggleRepository : FeatureToggleRepository {
     private val map: MutableMap<String, FeatureToggle> = mutableMapOf()
 
-    override fun all(): Either<FeatureToggleRepositoryException, List<FeatureToggle>> = Either.Right(map.values.toList())
+    override fun all(): Either<FeatureToggleRepositoryException, List<FeatureToggle>> =
+            Either.Right(map.values.toList())
 
-    override fun byId(id: String): Either<FeatureToggleRepositoryException, FeatureToggle?> = Either.Right(map[id])
+    override fun byId(id: String): Either<FeatureToggleRepositoryException, FeatureToggle?> =
+            Either.Right(map[id])
 
     override fun byName(name: String): Either<FeatureToggleRepositoryException, FeatureToggle?> =
             Either.Right(map.values.firstOrNull { f -> f.name == name })
