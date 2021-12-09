@@ -97,7 +97,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"test\",\r\n  \"enabled\": true,\r\n  \"startDate\": \"2021-01-01T12:00:00.000\",\r\n  \"endDate\": \"3000-01-01T12:00:00.000\",\r\n  \"type\": \"OPERATIONAL\",\r\n  \"condition\": {\r\n    \"type\": \"EXPRESSION\",\r\n    \"language\": \"JAVA\",\r\n    \"parameters\": {\r\n      \"inputParameters\": [\r\n        {\r\n          \"name\": \"1\",\r\n          \"description\": \"1 test\"\r\n        }\r\n      ]\r\n    },\r\n    \"condition\": {\r\n      \"body\": \"true\"\r\n    }\r\n  }\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -152,13 +152,44 @@
 			"response": []
 		},
 		{
-			"name": "Тестирование условия feature-toggles",
+			"name": "EXP Тестирование условия feature-toggles",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"type\": \"EXPRESSION\",\r\n  \"language\": \"JAVA\",\r\n  \"parameters\": {\r\n    \"inputParameters\": [\r\n      {\r\n        \"name\": \"test\",\r\n        \"value\": \"12\"\r\n      }\r\n    ]\r\n  },\r\n  \"condition\": {\r\n      \"body\": \"Integer.valueOf(test) > 100\"\r\n  }\r\n}",
+					"raw": "{\r\n  \"type\": \"EXPRESSION\",\r\n  \"language\": \"JAVA\",\r\n  \"parameters\": {\r\n    \"inputParameters\": [\r\n      {\r\n        \"name\": \"test\",\r\n        \"value\": \"5\"\r\n      }\r\n    ]\r\n  },\r\n  \"condition\": {\r\n      \"body\": \"Integer.parseInt(test) > 12\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/condition-checker/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"condition-checker",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SCRIPT Тестирование условия feature-toggles",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": \"SCRIPT\",\r\n  \"language\": \"JAVA\",\r\n  \"parameters\": {\r\n    \"inputParameters\": [\r\n      {\r\n        \"name\": \"test\",\r\n        \"value\": \"5,3,4,2\"\r\n      },\r\n      {\r\n        \"name\": \"value\",\r\n        \"value\": \"100\"\r\n      }\r\n    ]\r\n  },\r\n  \"condition\": {\r\n      \"body\": \"import java.util.Arrays;\\n import java.util.List;\\n \\n static boolean calculate(String test, String value){\\n List<String> list = Arrays.asList(test.split(\\\",\\\"));\\n int sum = 0;\\n for (String v : list){\\n sum += Integer.parseInt(v);\\n }\\n return sum > Integer.parseInt(value);\\n }\\n \\n return calculate(test, value);\"\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
