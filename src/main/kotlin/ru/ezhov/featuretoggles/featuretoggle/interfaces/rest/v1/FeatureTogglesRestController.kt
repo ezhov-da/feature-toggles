@@ -81,7 +81,7 @@ class FeatureTogglesRestController(
     }
 
     @RequestMapping(value = ["/v1/feature-toggles"], method = [RequestMethod.POST])
-    fun createFeatureToggles(@RequestBody new: NewFeatureToggleRequestDto) {
+    fun createFeatureToggle(@RequestBody new: NewFeatureToggleRequestDto) {
         val newToggle = new.toDomainModel()
 
         if (newToggle.condition != null) {
