@@ -207,7 +207,6 @@ class FeatureTogglesRestController(
         } else {
             return IsEnabledResponseDto(result = false)
         }
-
     }
 }
 
@@ -215,6 +214,7 @@ private fun FeatureToggle.toApiModel() = FeatureToggleResponseDto(
         id = this.id,
         name = this.name,
         enabled = this.enabled,
+        description = this.description.value,
         startDate = this.startDate,
         endDate = this.endDate,
         type = FeatureToggleTypeResponseDto.valueOf(this.type.name),
