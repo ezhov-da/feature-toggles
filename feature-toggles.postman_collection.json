@@ -71,7 +71,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/feature-toggles/01a334a0-a6bd-46fe-8165-38e8959ef476",
+					"raw": "http://localhost:8080/api/v1/feature-toggles/2bce64d4-9fd6-4cab-8b2a-2c5b626247be",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -81,7 +81,7 @@
 						"api",
 						"v1",
 						"feature-toggles",
-						"01a334a0-a6bd-46fe-8165-38e8959ef476"
+						"2bce64d4-9fd6-4cab-8b2a-2c5b626247be"
 					]
 				}
 			},
@@ -127,7 +127,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"test\",\r\n  \"enabled\": true,\r\n  \"startDate\": \"2021-01-01T12:00:00.000\",\r\n  \"endDate\": \"3000-01-01T12:00:00.000\",\r\n  \"type\": \"OPERATIONAL\",\r\n  \"condition\": {\r\n    \"type\": \"EXPRESSION\",\r\n    \"language\": \"JAVA\",\r\n    \"parameters\": {\r\n      \"inputParameters\": [\r\n        {\r\n          \"name\": \"1\",\r\n          \"description\": \"1 test\"\r\n        }\r\n      ]\r\n    },\r\n    \"condition\": {\r\n      \"body\": \"true\"\r\n    }\r\n  }\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -135,7 +135,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/feature-toggles/47993b98-318b-4d06-a098-a98ec106feb0",
+					"raw": "http://localhost:8080/api/v1/feature-toggles/545608e2-d34a-4210-afd4-259a16243ed0",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -145,7 +145,7 @@
 						"api",
 						"v1",
 						"feature-toggles",
-						"47993b98-318b-4d06-a098-a98ec106feb0"
+						"545608e2-d34a-4210-afd4-259a16243ed0"
 					]
 				}
 			},
@@ -158,7 +158,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"type\": \"EXPRESSION\",\r\n  \"language\": \"JAVA\",\r\n  \"parameters\": {\r\n    \"inputParameters\": [\r\n      {\r\n        \"name\": \"test\",\r\n        \"value\": \"5\"\r\n      }\r\n    ]\r\n  },\r\n  \"condition\": {\r\n      \"body\": \"Integer.parseInt(test) > 12\"\r\n  }\r\n}",
+					"raw": "{\r\n  \"type\": \"EXPRESSION\",\r\n  \"language\": \"JAVA\",\r\n  \"parameters\": {\r\n    \"inputParameters\": [\r\n      {\r\n        \"name\": \"test\",\r\n        \"value\": \"5\"\r\n      }\r\n    ]\r\n  },\r\n  \"condition\": {\r\n      \"body\": \"Integer.parseInt(test) > 2\"\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -231,7 +231,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/feature-toggles/test-feature-toggle?test1=41&test2=40",
+					"raw": "http://localhost:8080/api/v1/feature-toggles/test-feature-toggle?test=10",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -245,12 +245,8 @@
 					],
 					"query": [
 						{
-							"key": "test1",
-							"value": "41"
-						},
-						{
-							"key": "test2",
-							"value": "40"
+							"key": "test",
+							"value": "10"
 						}
 					]
 				}
