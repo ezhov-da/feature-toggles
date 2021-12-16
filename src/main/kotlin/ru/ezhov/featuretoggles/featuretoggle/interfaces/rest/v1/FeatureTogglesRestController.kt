@@ -42,6 +42,7 @@ import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.ConditionE
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureToggleInfoRequestDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureToggleResponseDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureToggleTypeResponseDto
+import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureToggleTypesResponseDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureTogglesResponseDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.InputConditionParameterConfigurationResponseDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.InputConditionParametersConfigurationResponseDto
@@ -208,6 +209,9 @@ class FeatureTogglesRestController(
             return IsEnabledResponseDto(result = false)
         }
     }
+
+    @RequestMapping(value = ["/v1/feature-toggles/types"], method = [RequestMethod.GET])
+    fun types(): FeatureToggleTypesResponseDto = FeatureToggleTypesResponseDto()
 }
 
 private fun FeatureToggle.toApiModel() = FeatureToggleResponseDto(
