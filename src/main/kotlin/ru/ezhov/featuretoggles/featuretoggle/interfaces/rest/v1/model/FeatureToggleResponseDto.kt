@@ -7,7 +7,7 @@ class FeatureToggleResponseDto(
         val name: String,
         val enabled: Boolean,
         val description: String,
-        val startDate: LocalDateTime,
+        val startDate: LocalDateTime?,
         val endDate: LocalDateTime?,
         val type: FeatureToggleTypeResponseDto,
         val condition: ConditionEngineConfigurationResponseDto?,

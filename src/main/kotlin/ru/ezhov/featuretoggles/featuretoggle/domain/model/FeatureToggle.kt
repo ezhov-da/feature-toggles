@@ -7,7 +7,7 @@ class FeatureToggle private constructor(
         val id: String,
         val name: String,
         val enabled: Boolean,
-        val startDate: LocalDateTime,
+        val startDate: LocalDateTime?,
         val endDate: LocalDateTime?,
         val description: FeatureToggleDescription,
         val type: FeatureToggleType,
