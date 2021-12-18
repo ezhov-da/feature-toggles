@@ -34,6 +34,10 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
+
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.1")
+    implementation("org.springdoc:springdoc-openapi-webmvc-core:1.6.1")
+    implementation("org.springdoc:springdoc-openapi-kotlin:1.6.1")
 }
 
 tasks.withType<KotlinCompile> {

@@ -7,8 +7,11 @@
 
 Используется [JANINO](https://janino-compiler.github.io/janino/) в качестве движка для выражений.
 
-API Postman [feature-toggles.postman_collection.json](feature-toggles.postman_collection.json).
+## API
+- API Postman [feature-toggles.postman_collection.json](feature-toggles.postman_collection.json).
+- API [Swagger](http://localhost:8080/swagger-ui/index.html)
 
+## UI
 UI сервиса [toggle](https://github.com/bisirkin-pv/toggle-vue2)
 
 ## TODO

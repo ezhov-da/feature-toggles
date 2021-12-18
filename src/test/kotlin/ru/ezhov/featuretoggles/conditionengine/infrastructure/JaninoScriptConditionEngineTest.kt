@@ -1,6 +1,7 @@
 package ru.ezhov.featuretoggles.conditionengine.infrastructure
 
 import arrow.core.getOrHandle
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import ru.ezhov.featuretoggles.conditionengine.domain.model.Condition
 import ru.ezhov.featuretoggles.conditionengine.domain.model.ConditionEngineParameters
@@ -9,6 +10,7 @@ import ru.ezhov.featuretoggles.conditionengine.domain.model.InputConditionParame
 
 internal class JaninoScriptConditionEngineTest {
     @Test
+    @Disabled
     fun test1() {
         for (i in 1..15) {
             val engine = JaninoScriptConditionEngine()
@@ -62,6 +64,7 @@ internal class JaninoScriptConditionEngineTest {
     }
 
     @Test
+    @Disabled
     fun test3() {
         for (i in 1..15) {
             val engine = JaninoScriptConditionEngine()

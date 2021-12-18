@@ -1,11 +1,13 @@
 package ru.ezhov.featuretoggles
 
 import org.codehaus.janino.ExpressionEvaluator
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 
 class JaninoTest {
     @Test
+    @Disabled
     fun test() {
         for (i in 1..10) {
             val start = System.currentTimeMillis()
