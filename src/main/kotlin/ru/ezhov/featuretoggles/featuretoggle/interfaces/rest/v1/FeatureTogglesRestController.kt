@@ -82,6 +82,15 @@ class FeatureTogglesRestController(
         return FeatureTogglesResponseDto(featureToggles = toggles.map { ft -> ft.toApiModel() })
     }
 
+    @RequestMapping(value = ["/v1/feature-toggles/{id}"], method = [RequestMethod.GET])
+    fun featureToggle(@PathVariable("id") id: String): FeatureToggleResponseDto {
+        val toggle = featureToggleRepository.byId(id).getOrHandle { ex ->
+            throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
+        } ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Toggle with ID $id not found")
+
+        return toggle.toApiModel()
+    }
+
     @RequestMapping(value = ["/v1/feature-toggles"], method = [RequestMethod.POST])
     fun createFeatureToggle(@RequestBody new: NewFeatureToggleRequestDto) {
         val newToggle = new.toDomainModel()
@@ -176,7 +185,7 @@ class FeatureTogglesRestController(
         return ConditionCheckerResponseDto(result = result, time = "${end - start} ms")
     }
 
-    @RequestMapping(value = ["/v1/feature-toggles/{name}"], method = [RequestMethod.GET])
+    @RequestMapping(value = ["/v1/feature-toggles/{name}/is-active"], method = [RequestMethod.GET])
     fun isEnable(@PathVariable("name") name: String, @RequestParam allParams: Map<String, String>): IsEnabledResponseDto {
         val toggle = featureToggleRepository.byName(name).getOrHandle { ex ->
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
