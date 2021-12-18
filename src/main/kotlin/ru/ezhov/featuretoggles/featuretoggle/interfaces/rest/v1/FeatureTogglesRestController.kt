@@ -41,6 +41,7 @@ import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.ConditionE
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.ConditionEnginesRequestDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureToggleInfoRequestDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureToggleResponseDto
+import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureToggleStateResponseDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureToggleTypeResponseDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureToggleTypesResponseDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureTogglesResponseDto
@@ -113,6 +114,23 @@ class FeatureTogglesRestController(
                 .getOrHandle { ex ->
                     throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
                 }
+    }
+
+    @RequestMapping(value = ["/v1/feature-toggles/{id}/state"], method = [RequestMethod.PATCH])
+    fun updateFeatureToggleState(@PathVariable("id") id: String): FeatureToggleStateResponseDto {
+        val toggle = featureToggleRepository.byId(id).getOrHandle { ex ->
+            throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
+        } ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Toggle with ID $id not found")
+
+        val toggleChanged = toggle.changeState()
+
+        featureToggleRepository
+                .save(toggleChanged)
+                .getOrHandle { ex ->
+                    throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
+                }
+
+        return FeatureToggleStateResponseDto(state = toggleChanged.enabled)
     }
 
     @RequestMapping(value = ["/v1/feature-toggles/{id}"], method = [RequestMethod.DELETE])

@@ -37,5 +37,17 @@ class FeatureToggle private constructor(
             condition = info.condition,
     )
 
+    fun changeState() =
+            FeatureToggle(
+                    id = this.id,
+                    name = this.name,
+                    enabled = !this.enabled,
+                    startDate = this.startDate,
+                    endDate = this.endDate,
+                    description = this.description,
+                    type = this.type,
+                    condition = this.condition,
+            )
+
     fun isActive() = enabled && (endDate == null || endDate.isAfter(LocalDateTime.now()))
 }

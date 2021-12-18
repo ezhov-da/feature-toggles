@@ -274,6 +274,38 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Изменить состояние feature-toggle",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": \"EXPRESSION\",\r\n  \"language\": \"JAVA\",\r\n  \"parameters\": {\r\n    \"inputParameters\": [\r\n      {\r\n        \"name\": \"test\",\r\n        \"value\": \"12\"\r\n      }\r\n    ]\r\n  },\r\n  \"condition\": {\r\n      \"body\": \"Integer.valueOf(test) > 2\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/feature-toggles/365b8369-a54f-4b05-94f3-259e457bbe07/state",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"feature-toggles",
+						"365b8369-a54f-4b05-94f3-259e457bbe07",
+						"state"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
