@@ -2,11 +2,13 @@ package ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1
 
 import arrow.core.getOrHandle
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 import ru.ezhov.featuretoggles.conditionengine.domain.ConditionEngineRepository
@@ -48,6 +50,7 @@ import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.FeatureTog
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.InputConditionParameterConfigurationResponseDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.InputConditionParametersConfigurationResponseDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.IsEnabledResponseDto
+import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.NewFeatureToggleIdResponseDto
 import ru.ezhov.featuretoggles.featuretoggle.interfaces.rest.v1.model.NewFeatureToggleRequestDto
 
 @RestController
@@ -56,7 +59,11 @@ class FeatureTogglesRestController(
         private val conditionEngineRepository: ConditionEngineRepository,
         private val featureToggleRepository: FeatureToggleRepository
 ) {
-    @RequestMapping(value = ["/v1/condition-engines"], method = [RequestMethod.GET])
+    @RequestMapping(
+            value = ["/v1/condition-engines"],
+            method = [RequestMethod.GET],
+            produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun engines(): ConditionEnginesRequestDto {
         val engines = conditionEngineRepository.all().getOrHandle { ex ->
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
@@ -73,7 +80,11 @@ class FeatureTogglesRestController(
         )
     }
 
-    @RequestMapping(value = ["/v1/feature-toggles"], method = [RequestMethod.GET])
+    @RequestMapping(
+            value = ["/v1/feature-toggles"],
+            method = [RequestMethod.GET],
+            produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun allFeatureToggles(): FeatureTogglesResponseDto {
         val toggles = featureToggleRepository.all().getOrHandle { ex ->
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
@@ -82,7 +93,11 @@ class FeatureTogglesRestController(
         return FeatureTogglesResponseDto(featureToggles = toggles.map { ft -> ft.toApiModel() })
     }
 
-    @RequestMapping(value = ["/v1/feature-toggles/{id}"], method = [RequestMethod.GET])
+    @RequestMapping(
+            value = ["/v1/feature-toggles/{id}"],
+            method = [RequestMethod.GET],
+            produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun featureToggle(@PathVariable("id") id: String): FeatureToggleResponseDto {
         val toggle = featureToggleRepository.byId(id).getOrHandle { ex ->
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
@@ -91,8 +106,13 @@ class FeatureTogglesRestController(
         return toggle.toApiModel()
     }
 
-    @RequestMapping(value = ["/v1/feature-toggles"], method = [RequestMethod.POST])
-    fun createFeatureToggle(@RequestBody new: NewFeatureToggleRequestDto) {
+    @RequestMapping(
+            value = ["/v1/feature-toggles"],
+            method = [RequestMethod.POST],
+            produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
+    @ResponseStatus(code = HttpStatus.CREATED)
+    fun createFeatureToggle(@RequestBody new: NewFeatureToggleRequestDto): NewFeatureToggleIdResponseDto {
         val newToggle = new.toDomainModel()
 
         if (newToggle.condition != null) {
@@ -110,9 +130,16 @@ class FeatureTogglesRestController(
         featureToggleRepository.save(FeatureToggle.from(newToggle)).getOrHandle { ex ->
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
         }
+
+        return NewFeatureToggleIdResponseDto(id = newToggle.id)
     }
 
-    @RequestMapping(value = ["/v1/feature-toggles/{id}"], method = [RequestMethod.PUT])
+    @RequestMapping(
+            value = ["/v1/feature-toggles/{id}"],
+            method = [RequestMethod.PUT],
+            produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     fun updateFeatureToggle(@PathVariable("id") id: String, @RequestBody info: FeatureToggleInfoRequestDto) {
         val toggle = featureToggleRepository.byId(id).getOrHandle { ex ->
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
@@ -125,7 +152,11 @@ class FeatureTogglesRestController(
                 }
     }
 
-    @RequestMapping(value = ["/v1/feature-toggles/{id}/state"], method = [RequestMethod.PATCH])
+    @RequestMapping(
+            value = ["/v1/feature-toggles/{id}/state"],
+            method = [RequestMethod.PATCH],
+            produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun updateFeatureToggleState(@PathVariable("id") id: String): FeatureToggleStateResponseDto {
         val toggle = featureToggleRepository.byId(id).getOrHandle { ex ->
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
@@ -155,7 +186,11 @@ class FeatureTogglesRestController(
                 }
     }
 
-    @RequestMapping(value = ["/v1/condition-checker"], method = [RequestMethod.POST])
+    @RequestMapping(
+            value = ["/v1/condition-checker"],
+            method = [RequestMethod.POST],
+            produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun checkCondition(@RequestBody conditionEngineConfiguration: ConditionEngineCheckerRequestDto):
             ConditionCheckerResponseDto {
         val type = conditionEngineConfiguration.type.toDomainModel()
@@ -185,7 +220,11 @@ class FeatureTogglesRestController(
         return ConditionCheckerResponseDto(result = result, time = "${end - start} ms")
     }
 
-    @RequestMapping(value = ["/v1/feature-toggles/{name}/is-active"], method = [RequestMethod.GET])
+    @RequestMapping(
+            value = ["/v1/feature-toggles/{name}/is-active"],
+            method = [RequestMethod.GET],
+            produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun isEnable(@PathVariable("name") name: String, @RequestParam allParams: Map<String, String>): IsEnabledResponseDto {
         val toggle = featureToggleRepository.byName(name).getOrHandle { ex ->
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
@@ -237,7 +276,11 @@ class FeatureTogglesRestController(
         }
     }
 
-    @RequestMapping(value = ["/v1/feature-toggles/types"], method = [RequestMethod.GET])
+    @RequestMapping(
+            value = ["/v1/feature-toggles/types"],
+            method = [RequestMethod.GET],
+            produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun types(): FeatureToggleTypesResponseDto = FeatureToggleTypesResponseDto()
 }
 
