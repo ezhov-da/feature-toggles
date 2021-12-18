@@ -9,6 +9,8 @@
 
 API Postman [feature-toggles.postman_collection.json](feature-toggles.postman_collection.json).
 
+UI сервиса [toggle](https://github.com/bisirkin-pv/toggle-vue2)
+
 ## TODO
 
 - [ ] Добавить обязательное описание условия
