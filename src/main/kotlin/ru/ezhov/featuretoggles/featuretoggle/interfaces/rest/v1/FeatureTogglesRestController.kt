@@ -234,7 +234,7 @@ private fun FeatureToggle.toApiModel() = FeatureToggleResponseDto(
                                             description = p.description
                                     )
                                 }
-                                InputConditionParametersConfigurationResponseDto(parameters = pars)
+                                InputConditionParametersConfigurationResponseDto(inputParameters = pars)
                             },
                     condition = c.condition?.let { con -> ConditionConfigurationResponseDto(body = con.body) }
             )
