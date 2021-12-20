@@ -262,7 +262,8 @@ private fun FeatureToggle.toApiModel() = FeatureToggleResponseDto(
                     val pars = par.parameters.map { p ->
                         InputConditionParameterConfigurationResponseDto(
                             name = p.name,
-                            description = p.description
+                            description = p.description,
+                            value = p.testValue,
                         )
                     }
                     InputConditionParametersConfigurationResponseDto(inputParameters = pars)
@@ -325,7 +326,8 @@ private fun ConditionEngineConfigurationRequestDto.toDomainModel(
                     .map { p ->
                         InputConditionParameterConfiguration(
                             name = p.name,
-                            description = p.description
+                            description = p.description,
+                            testValue = p.value,
                         )
                     }
             )
