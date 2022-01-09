@@ -1,5 +1,7 @@
 # MVP Feature Toggles server
 
+## ВАЖНО. Проект перенесён. Новый адрес https://github.com/togglefeature/feature-toggle
+
 Статьи о Feature Toggle:
 
 - [Feature Toggles: An Overview & Our Best Practices](https://www.flagship.io/feature-toggle-best-practices/).
